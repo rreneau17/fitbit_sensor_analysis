@@ -13,6 +13,23 @@ demotext.text = "Fitbit Studio rocks!";
 
 let orientation = new OrientationSensor({ frequency: 1 });
 
+let testObj = {
+  readings: []
+}
+let k = 0;
+
+let quatArr = [];
+
+function getQvals() {
+    testObj.readings[k] = {
+        xVal: orientation.quaternion[0],
+        yVal: orientation.quaternion[1],
+        zVal: orientation.quaternion[2],
+        wVal: orientation.quaternion[3]
+    }
+    k++;
+}
+
 orientation.onreading = function() {
   console.log("Orientation Sensor Reading: " +
               "timestamp: " + orientation.timestamp,
@@ -20,6 +37,7 @@ orientation.onreading = function() {
               "quaternion[1]: " + orientation.quaternion[1],
               "quaternion[2]: " + orientation.quaternion[2],
               "quaternion[3]: " + orientation.quaternion[3]);
+  getQvals();
 }
 
 orientation.start();
